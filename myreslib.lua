@@ -85,8 +85,25 @@ local OptimizedMode = false
 -------------------------//
 --// Overwrite Functions
 -------------------------//
-local RunService = game:GetService("RunService")
-RunService:Set3dRenderingEnabled(false)
+for i,v in next, workspace:GetDescendants() do
+    pcall(function()
+        v.Transparency = 1
+    end)
+end
+for i,v in next, getnilinstances() do
+    pcall(function()
+        v.Transparency = 1
+        for i1,v1 in next, v:GetDescendants() do
+            v1.Transparency = 1
+        end
+    end)
+end
+a = workspace
+a.DescendantAdded:Connect(function(v)
+    pcall(function()
+        v.Transparency = 1
+    end)
+end)
 
 local Original_EntityNew = Entity.new
 Entity.new = function(id, uid, entityType, p4, p5)
