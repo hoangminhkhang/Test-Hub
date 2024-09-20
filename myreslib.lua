@@ -1,23 +1,54 @@
-if not game:IsLoaded() then game.Loaded:Wait() end
-if game.PlaceId ~= 4490140733 then return end
+repeat task.wait() until game:IsLoaded()
 
-local HttpService = game:GetService("HttpService")
-local Players = game:GetService("Players")
-
-local Library = require(game:GetService("ReplicatedStorage"):WaitForChild("Framework"):WaitForChild("Library"))
-assert(Library, "Oopps! Library has not been loaded. Maybe try re-joining?") 
-while not Library.Loaded do wait() end
-
-function GetPath(...)
-    local path = {...}
-    local oldPath = Library
-	if path and #path > 0 then
-		for _,v in ipairs(path) do
-			oldPath = oldPath[v]
-		end
+local close_button = function()
+	if game.Players.LocalPlayer:WaitForChild("PlayerGui"):FindFirstChild("luxury_close") then
+		game.Players.LocalPlayer:WaitForChild("PlayerGui"):FindFirstChild("luxury_close"):Destroy()
 	end
-    return oldPath
-end 
+
+	local luxury_close = Instance.new("ScreenGui")
+	local close_button = Instance.new("ImageButton")
+	local UICorner = Instance.new("UICorner")
+
+	luxury_close.Name = "luxury_close"
+	luxury_close.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+	luxury_close.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	luxury_close.ResetOnSpawn = false
+
+	close_button.Name = "close_button"
+	close_button.Parent = luxury_close
+	close_button.BackgroundColor3 = Color3.fromRGB(27, 27, 27)
+	close_button.BackgroundTransparency = 0.100
+	close_button.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	close_button.BorderSizePixel = 0
+	close_button.Position = UDim2.new(0.0559845567, 0, 0.198529407, 0)
+	close_button.Size = UDim2.new(0, 45, 0, 45)
+	close_button.AutoButtonColor = false
+	close_button.Image = "rbxassetid://16124510195"
+
+	UICorner.Parent = close_button
+
+	local close = true
+	close_button.MouseButton1Down:Connect(function()
+		if not close then
+			for i,v in pairs(game:GetService("CoreGui"):GetChildren()) do
+				if string.find(v.Name,"xova") then
+					v.Enabled = true
+				end
+			end
+		else
+			for i,v in pairs(game:GetService("CoreGui"):GetChildren()) do
+				if string.find(v.Name,"xova") then
+					v.Enabled = false
+				end
+			end
+		end
+		close = not close
+	end)
+end
+
+do
+	close_button()
+end
 
 -------
 -------------------------//
