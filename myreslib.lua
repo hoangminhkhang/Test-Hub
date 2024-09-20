@@ -1,56 +1,31 @@
-repeat task.wait() until game:IsLoaded()
-
-local close_button = function()
-	if game.Players.LocalPlayer:WaitForChild("PlayerGui"):FindFirstChild("luxury_close") then
-		game.Players.LocalPlayer:WaitForChild("PlayerGui"):FindFirstChild("luxury_close"):Destroy()
-	end
-
-	local luxury_close = Instance.new("ScreenGui")
-	local close_button = Instance.new("ImageButton")
-	local UICorner = Instance.new("UICorner")
-
-	luxury_close.Name = "luxury_close"
-	luxury_close.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-	luxury_close.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-	luxury_close.ResetOnSpawn = false
-
-	close_button.Name = "close_button"
-	close_button.Parent = luxury_close
-	close_button.BackgroundColor3 = Color3.fromRGB(27, 27, 27)
-	close_button.BackgroundTransparency = 0.100
-	close_button.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	close_button.BorderSizePixel = 0
-	close_button.Position = UDim2.new(0.0559845567, 0, 0.198529407, 0)
-	close_button.Size = UDim2.new(0, 45, 0, 45)
-	close_button.AutoButtonColor = false
-	close_button.Image = "rbxassetid://16124510195"
-
-	UICorner.Parent = close_button
-
-	local close = true
-	close_button.MouseButton1Down:Connect(function()
-		if not close then
-			for i,v in pairs(game:GetService("CoreGui"):GetChildren()) do
-				if string.find(v.Name,"xova") then
-					v.Enabled = true
-				end
-			end
-		else
-			for i,v in pairs(game:GetService("CoreGui"):GetChildren()) do
-				if string.find(v.Name,"xova") then
-					v.Enabled = false
-				end
-			end
-		end
-		close = not close
-	end)
-end
-
+local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
+local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
+--------------------------------------------------------------------
+local Window = Fluent:CreateWindow({
+    Title = "KgaHei Community / ",
+    SubTitle = "Test Ver",
+    TabWidth = 160,
+    Size = UDim2.fromOffset(530, 350),
+    Acrylic = true, -- The blur may be detectable, setting this to false disables blur entirely
+    Theme = "Darker",
+    MinimizeKey = Enum.KeyCode.End -- Used when theres no MinimizeKeybind
+})
+local Tabs = {
+    Main = Window:AddTab({ Title = "Main Farm", Icon = "home" }),
+    Setting = Window:AddTab({ Title = "Setting Farming", Icon = "settings" }),
+    Stats = Window:AddTab({ Title = "Stats", Icon = "plus-circle" }),
+    Player = Window:AddTab({ Title = "Player", Icon = "baby" }),
+    Teleport = Window:AddTab({ Title = "Travel", Icon = "palmtree" }),
+    Fruit = Window:AddTab({ Title = "Devil Fruit", Icon = "cherry" }),
+    Raid = Window:AddTab({ Title = "Raid", Icon = "swords" }),
+    Race = Window:AddTab({ Title = "Race V4", Icon = "chevrons-right" }),
+    Shop = Window:AddTab({ Title = "Buy Items", Icon = "shopping-cart" }),
+	Misc = Window:AddTab({ Title = "Miscellaneous", Icon = "list-plus" }),
+    Hop = Window:AddTab({ Title = "Hop", Icon = "wifi" }),
+}
+local Options = Fluent.Options
 do
-	close_button()
-end
-
--------
 -------------------------//
 --// Libraries
 -------------------------//
